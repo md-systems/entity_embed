@@ -339,11 +339,7 @@ class EntityEmbedDialog extends FormBase {
     $form_state->setRebuild(TRUE);
     $rebuild_form = $this->formBuilder->rebuildForm('entity_embed_dialog', $form_state, $form);
     unset($rebuild_form['#prefix'], $rebuild_form['#suffix']);
-    $status_messages = array('#theme' => 'status_messages');
-    $output = drupal_render($rebuild_form);
-    drupal_process_attached($rebuild_form);
-    $output = '<div>' . drupal_render($status_messages) . $output . '</div>';
-    $response->addCommand(new HtmlCommand('#entity-embed-dialog-form', $output));
+    $response->addCommand(new HtmlCommand('#entity-embed-dialog-form', $rebuild_form));
 
     return $response;
   }
@@ -362,21 +358,18 @@ class EntityEmbedDialog extends FormBase {
     // Display errors in form, if any.
     if ($form_state->hasAnyErrors()) {
       unset($form['#prefix'], $form['#suffix']);
-      $status_messages = array('#theme' => 'status_messages');
-      $output = drupal_render($form);
-      $output = '<div>' . drupal_render($status_messages) . $output . '</div>';
-      $response->addCommand(new HtmlCommand('#entity-embed-dialog-form', $output));
+      $form['status_messages'] = array(
+        '#theme' => 'status_messages',
+        'weight' => -10,
+      );
+      $response->addCommand(new HtmlCommand('#entity-embed-dialog-form', $form));
     }
     else {
       $form_state->setStorage(array('step' => 'embed'));
       $form_state->setRebuild(TRUE);
       $rebuild_form = $this->formBuilder->rebuildForm('entity_embed_dialog', $form_state, $form);
       unset($rebuild_form['#prefix'], $rebuild_form['#suffix']);
-      $status_messages = array('#theme' => 'status_messages');
-      $output = drupal_render($rebuild_form);
-      drupal_process_attached($rebuild_form);
-      $output = '<div>' . drupal_render($status_messages) . $output . '</div>';
-      $response->addCommand(new HtmlCommand('#entity-embed-dialog-form', $output));
+      $response->addCommand(new HtmlCommand('#entity-embed-dialog-form', $rebuild_form));
     }
 
     return $response;
@@ -398,10 +391,11 @@ class EntityEmbedDialog extends FormBase {
     // Display errors in form, if any.
     if ($form_state->hasAnyErrors()) {
       unset($form['#prefix'], $form['#suffix']);
-      $status_messages = array('#theme' => 'status_messages');
-      $output = drupal_render($form);
-      $output = '<div>' . drupal_render($status_messages) . $output . '</div>';
-      $response->addCommand(new HtmlCommand('#entity-embed-dialog-form', $output));
+      $form['status_messages'] = array(
+        '#theme' => 'status_messages',
+        'weight' => -10,
+      );
+      $response->addCommand(new HtmlCommand('#entity-embed-dialog-form', $form));
     }
     else {
       // Serialize entity embed settings to JSON string.
