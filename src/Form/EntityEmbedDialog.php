@@ -67,7 +67,7 @@ class EntityEmbedDialog extends FormBase {
     return new static(
       $container->get('plugin.manager.entity_embed.display'),
       $container->get('form_builder'),
-      $container->get('logger.factory')->get('entity_embed')
+      $container->get('logger.channel.entity_embed')
     );
   }
 
