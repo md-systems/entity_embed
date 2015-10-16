@@ -27,8 +27,8 @@
 
       // Generic command for adding/editing entities of all types.
       editor.addCommand('editdrupalentity', {
-        allowedContent: 'drupal-entity[*]',
-        requiredContent: 'drupal-entity[*]',
+        allowedContent: 'drupal-entity[data-*]',
+        requiredContent: 'drupal-entity[data-*]',
         modes: { wysiwyg : 1 },
         canUndo: true,
         exec: function (editor, data) {
